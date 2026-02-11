@@ -4,7 +4,8 @@ pipeline {
     tools {
         nodejs 'Node18'
     }
-     options {
+
+    options {
         timestamps()
         timeout(time: 1, unit: 'HOURS')
     }
@@ -14,11 +15,6 @@ pipeline {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/avelmuruganofficials-sudo/RESTD-All-State-11-02-2026.git'
-            }
-        }
-        stage('Checkout') {
-            steps {
-                checkout scm
             }
         }
 
@@ -50,6 +46,7 @@ pipeline {
 
     post {
         always {
+            junit 'test-results/results.xml'   // 👈 ADD THIS
             archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
         }
     }
