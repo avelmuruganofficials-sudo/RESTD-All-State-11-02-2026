@@ -4,8 +4,18 @@ pipeline {
     tools {
         nodejs 'Node18'
     }
+     options {
+        timestamps()
+        timeout(time: 1, unit: 'HOURS')
+    }
 
     stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/avelmuruganofficials-sudo/RESTD-All-State-11-02-2026.git'
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
